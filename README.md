@@ -80,7 +80,8 @@ Accepts a player's whitelist application and adds them to the server's whitelist
 
 ``whitelister.manage``
 Grants access to the /whitelister commands for managing applications. Players with this permission will be notified of pending applications when they log in.
-How It Works
+
+## How It Works
 
 ### Player Application:
 
