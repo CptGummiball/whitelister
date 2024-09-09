@@ -1,6 +1,9 @@
 # Whitelister Plugin
+[![Spigot](https://img.shields.io/badge/Spigot-yellow.svg)]
+[![Version](https://img.shields.io/badge/1.0.0-gray.svg)]
+[![MIT License](https://img.shields.io/badge/License-MIT-green.svg)]
+
 **Author:** CptGummiball
-**Version:** 1.0.0
 
 ## Overview
 Whitelister is a Spigot plugin designed to manage server whitelist applications via a web interface. The plugin sets up a simple website using Jetty, where players can review the server rules and submit a whitelist application. Server administrators can then manage these applications directly in-game with intuitive commands.
