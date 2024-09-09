@@ -1,0 +1,13 @@
+# Rules configuration
+# Define your server rules here. Each rule should be a list item (-).
+# These rules will be displayed on the web interface.
+rules:
+  - "No griefing."
+  - "Be respectful to other players."
+  - "No hacking or cheating."
+  - "Follow the instructions of the server admins."
+
+# Example:
+# rules:
+#   - "Your first rule."
+#   - "Your second rule."

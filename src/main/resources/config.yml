@@ -1,0 +1,13 @@
+# Webserver Configuration
+port: 8080
+
+# Language options (en/de)
+language: en
+
+# Enable or disable notifications for new applications
+notifications:
+  enabled: true
+
+# Optional URL for server rules
+# If set, the URL will be displayed as a hyperlink instead of showing the rules from rules.yml
+rules_url: "https://example.com/server-rules"

@@ -1,0 +1,14 @@
+name: Whitelister
+version: '1.0'
+main: org.cptgummiball.whitelister.Whitelister
+api-version: '1.20'
+authors: [cptgummiball]
+commands:
+  whitelister:
+    description: Main command for whitelister actions
+    usage: /whitelister <list|accept>
+    permission: whitelister.manage
+permissions:
+  whitelister.manage:
+    description: Permission to manage whitelist applications.
+    default: op
