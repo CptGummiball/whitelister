@@ -1,5 +1,11 @@
 # CHANGELOG
 
+## NEXT
+### Added:
+
+### Changed
+- Changed UUID Error Response in API
+
 ## 1.1.0 [10.09.2024]
 ### Added:
 - API Support (enable in config.yml)
