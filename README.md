@@ -101,5 +101,63 @@ Whitelist Update:
 
 Upon accepting an application, the plugin adds the player to the server's whitelist and moves their application data to an "accepted" YAML file for record-keeping.
 
+## API Usage
+The API can be used to manage requests via HTTP requests. Make sure the use_api option in the config.yml is set to true to turn off the internal web server and use the API.
+
+**Base URL:** ``http://<server-ip>:<port>/api/``
+
+**Submit application**
+- Endpoint: /api/apply
+- Method: POST
+- Parameter:
+username (string): The Minecraft Username.
+accept (string): Must be set to "on" to accept the rules.
+
+Sample request:
+````bash
+curl -X POST http://<server-ip>:<port>/api/apply \
+     -d "username=player123" \
+     -d "accept=on"
+````
+Answer:
+````json
+{
+  "status": "success",
+  "message": "Application successfully submitted."
+}
+````
+In case of errors:
+
+````json
+{
+  "status": "error",
+  "message": "Please provide username and accept the rules."
+}
+````
+Or:
+````json
+{
+  "status": "error",
+  "message": "UUID not found."
+}
+````
+
+**Retrieve all applications**
+- Endpoint: /api/requests
+- Method: GET
+
+Sample request:
+
+````bash
+curl http://<server-ip>:<port>/api/requests
+````
+Answer:
+````json
+{
+  "player123": "uuid-1",
+  "player456": "uuid-2"
+}
+````
+
 ## License
 This plugin is open-source and distributed under the [MIT License](LICENSE).
