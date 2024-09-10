@@ -23,7 +23,7 @@ public class PlayerJoinListener implements Listener {
 
         // Check if notifications are enabled and player has permission
         if (config.getBoolean("notifications.enabled", true) && player.hasPermission("whitelister.manage")) {
-            if (plugin.getWhitelistManager().getApplicationConfig().getConfigurationSection("applications") != null) {
+            if (plugin.getWhitelistManager().getPendingApplications() != null) {
                 player.sendMessage(ChatColor.GOLD + messages.getString("pending_applications_notification"));
             }
         }

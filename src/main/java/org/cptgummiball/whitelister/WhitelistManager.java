@@ -1,44 +1,81 @@
 package org.cptgummiball.whitelister;
 
 import org.bukkit.configuration.file.FileConfiguration;
-import org.bukkit.configuration.file.YamlConfiguration;
+import org.json.JSONObject;
+
 import java.io.File;
+import java.io.FileWriter;
 import java.io.IOException;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.UUID;
+import java.util.concurrent.ConcurrentHashMap;
 
 public class WhitelistManager {
     private final Whitelister plugin;
-    private File applicationFile;
-    private FileConfiguration applicationConfig;
+    private final FileConfiguration config;
+    private final Map<String, UUID> pendingApplications = new ConcurrentHashMap<>();
+    private final File applicationsFile;
 
     public WhitelistManager(Whitelister plugin) {
         this.plugin = plugin;
-        setupFiles();
-    }
-
-    private void setupFiles() {
-        applicationFile = new File(plugin.getDataFolder(), "applications.yml");
-        if (!applicationFile.exists()) {
-            applicationFile.getParentFile().mkdirs();
-            plugin.saveResource("applications.yml", false);
-        }
-        applicationConfig = YamlConfiguration.loadConfiguration(applicationFile);
+        this.config = plugin.getConfig();
+        this.applicationsFile = new File(plugin.getDataFolder(), "pending_applications.json");
+        loadPendingApplications();
     }
 
     public void handleApplication(String username) {
-        // Fetch UUID from Mojang API
-        UUID uuid = fetchUUID(username);
+        UUID uuid = getUUIDFromUsername(username);
         if (uuid != null) {
-            applicationConfig.set("applications." + username + ".uuid", uuid.toString());
-            saveApplications();
+            pendingApplications.put(username, uuid);
+            savePendingApplications();
         }
     }
 
-    public void saveApplications() {
-        try {
-            applicationConfig.save(applicationFile);
+    public String getPendingRequestsAsJson() {
+        JSONObject json = new JSONObject();
+        for (Map.Entry<String, UUID> entry : pendingApplications.entrySet()) {
+            json.put(entry.getKey(), entry.getValue().toString());
+        }
+        return json.toString();
+    }
+
+    public void acceptApplication(String username) {
+        plugin.getServer().dispatchCommand(plugin.getServer().getConsoleSender(), "whitelist add " + username);
+        UUID uuid = pendingApplications.remove(username);
+        if (uuid != null) {
+            savePendingApplications();
+        }
+    }
+
+    UUID getUUIDFromUsername(String username) {
+        return fetchUUID(username);
+    }
+
+    private void savePendingApplications() {
+        try (FileWriter fileWriter = new FileWriter(applicationsFile)) {
+            JSONObject json = new JSONObject();
+            for (Map.Entry<String, UUID> entry : pendingApplications.entrySet()) {
+                json.put(entry.getKey(), entry.getValue().toString());
+            }
+            fileWriter.write(json.toString());
         } catch (IOException e) {
             e.printStackTrace();
+        }
+    }
+
+    private void loadPendingApplications() {
+        if (applicationsFile.exists()) {
+            try {
+                String jsonContent = new String(java.nio.file.Files.readAllBytes(applicationsFile.toPath()));
+                JSONObject json = new JSONObject(jsonContent);
+                for (String key : json.keySet()) {
+                    UUID uuid = UUID.fromString(json.getString(key));
+                    pendingApplications.put(key, uuid);
+                }
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
         }
     }
 
@@ -68,12 +105,8 @@ public class WhitelistManager {
         }
     }
 
-    public FileConfiguration getApplicationConfig() {
-        return applicationConfig;
-    }
+    public Map<String, UUID> getPendingApplications() {
+        return new HashMap<>(pendingApplications);
 
-    public void deleteApplication(String username) {
-        applicationConfig.set("applications." + username, null);
-        saveApplications();
     }
 }

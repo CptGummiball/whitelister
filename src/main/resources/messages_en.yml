@@ -1,6 +1,7 @@
 no_applications: "No applications found."
 application_list: "Application List:"
-application_accepted: "Player %player% has been added to the whitelist."
+application_accepted: "Application for {username} accepted"
+no_application_found: "No application for {username}"
 application_valid: "Username valid, request send!"
 application_error: "Error: Please provide a valid username."
 server_rules_title: "Server Rules"

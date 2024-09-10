@@ -6,55 +6,76 @@ import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.command.TabCompleter;
 import org.bukkit.configuration.file.FileConfiguration;
-import org.bukkit.util.StringUtil;
+import org.bukkit.entity.Player;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
+import java.util.UUID;
 
 public class WhitelistCommand implements CommandExecutor, TabCompleter {
+    private WhitelistManager whitelistManager;
     private final Whitelister plugin;
+    private final FileConfiguration messages;
 
     public WhitelistCommand(Whitelister plugin) {
         this.plugin = plugin;
+        this.whitelistManager = whitelistManager;
+        this.messages = plugin.getLanguage().equalsIgnoreCase("de")
+                ? plugin.getConfig("messages_de.yml") : plugin.getConfig("messages_en.yml");
+
     }
+
 
     @Override
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
-        // Existing command logic for list and accept
-        FileConfiguration messages = plugin.getLanguage().equalsIgnoreCase("de")
-                ? plugin.getConfig("messages_de.yml") : plugin.getConfig("messages_en.yml");
-
+        Player player = (Player) sender;
         if (args.length == 0 || args[0].equalsIgnoreCase("list")) {
-            FileConfiguration config = plugin.getWhitelistManager().getApplicationConfig();
-            if (config.getConfigurationSection("applications") == null) {
-                sender.sendMessage(ChatColor.RED + messages.getString("no_applications"));
-                return true;
-            }
-            sender.sendMessage(ChatColor.GOLD + messages.getString("application_list"));
-            config.getConfigurationSection("applications").getKeys(false).forEach(name -> {
-                String uuid = config.getString("applications." + name + ".uuid");
-                sender.sendMessage(ChatColor.GREEN + name + " - " + uuid);
-            });
+
+            listPendingApplications(player);
         } else if (args[0].equalsIgnoreCase("accept") && args.length == 2) {
-            String username = args[1];
-            plugin.getServer().dispatchCommand(plugin.getServer().getConsoleSender(), "whitelist add " + username);
-            plugin.getWhitelistManager().deleteApplication(username);
-            sender.sendMessage(ChatColor.GREEN + messages.getString("application_accepted").replace("%player%", username));
+            acceptApplication(player, args[1]);
         }
         return true;
     }
 
     @Override
     public List<String> onTabComplete(CommandSender sender, Command command, String alias, String[] args) {
-        List<String> completions = new ArrayList<>();
-        FileConfiguration config = plugin.getWhitelistManager().getApplicationConfig();
+        if (!(sender instanceof Player)) {
+            return null;
+        }
 
-        if (args.length == 2 && args[0].equalsIgnoreCase("accept")) {
-            if (config.getConfigurationSection("applications") != null) {
-                List<String> names = new ArrayList<>(config.getConfigurationSection("applications").getKeys(false));
-                StringUtil.copyPartialMatches(args[1], names, completions);
+        List<String> completions = new ArrayList<>();
+        if (args.length == 1) {
+            completions.add("list");
+            completions.add("accept");
+        } else if (args.length == 2 && "accept".equalsIgnoreCase(args[0])) {
+            // Provide tab completion for usernames
+            completions.addAll(whitelistManager.getPendingApplications().keySet());
+        }
+
+        return completions;
+    }
+
+    private void listPendingApplications(Player player) {
+        Map<String, UUID> applications = whitelistManager.getPendingApplications();
+        if (applications.isEmpty()) {
+            player.sendMessage(ChatColor.RED + messages.getString("no_applications"));
+        } else {
+            player.sendMessage(ChatColor.GREEN + messages.getString("application_list"));
+            for (String username : applications.keySet()) {
+                player.sendMessage("- " + username);
             }
         }
-        return completions;
+    }
+
+    private void acceptApplication(Player player, String username) {
+        Map<String, UUID> applications = whitelistManager.getPendingApplications();
+        if (applications.containsKey(username)) {
+            whitelistManager.acceptApplication(username);
+            player.sendMessage(ChatColor.GREEN + messages.getString("application_accepted").replace("{username}", username));
+        } else {
+            player.sendMessage(ChatColor.RED + messages.getString("no_application_found").replace("{username}", username));
+        }
     }
 }

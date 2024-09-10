@@ -3,6 +3,7 @@ package org.cptgummiball.whitelister;
 import org.eclipse.jetty.server.Request;
 import org.eclipse.jetty.server.handler.AbstractHandler;
 import org.bukkit.configuration.file.FileConfiguration;
+import org.json.JSONObject;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -19,7 +20,25 @@ public class WebHandler extends AbstractHandler {
     }
 
     @Override
-    public void handle(String target, Request baseRequest, HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
+    public void handle(String target, Request baseRequest, HttpServletRequest request, HttpServletResponse response)
+            throws IOException, ServletException {
+        response.setContentType("text/html; charset=utf-8");
+        response.setStatus(HttpServletResponse.SC_OK);
+        baseRequest.setHandled(true);
+
+        FileConfiguration messages = plugin.getLanguage().equalsIgnoreCase("de")
+                ? plugin.getConfig("messages_de.yml") : plugin.getConfig("messages_en.yml");
+
+        boolean useApi = plugin.getConfig().getBoolean("use_api", false);
+
+        if (useApi) {
+            handleApiRequests(target, request, response);
+        } else {
+            handleWebRequests(target, baseRequest, request, response);
+        }
+    }
+
+    private void handleWebRequests(String target, Request baseRequest, HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
         // Set content type and response status
         response.setContentType("text/html; charset=utf-8");
         response.setStatus(HttpServletResponse.SC_OK);
@@ -81,6 +100,36 @@ public class WebHandler extends AbstractHandler {
                 response.getWriter().println("<html><body><div class='container'><p>" + messages.getString("application_valid") + "</p></div></body></html>");
             } else {
                 response.getWriter().println("<html><body><div class='container'><p>" + messages.getString("application_error") + "</p></div></body></html>");
+            }
+        }
+    }
+
+    private void handleApiRequests(String target, HttpServletRequest request, HttpServletResponse response) throws IOException {
+        if (target.equals("/api/apply") && "POST".equalsIgnoreCase(request.getMethod())) {
+            String username = request.getParameter("username");
+            String accept = request.getParameter("accept");
+
+            response.setContentType("application/json");
+            JSONObject jsonResponse = new JSONObject();
+            if (accept != null && username != null) {
+                if (whitelistManager.getUUIDFromUsername(username) != null) {
+                    whitelistManager.handleApplication(username);
+                    jsonResponse.put("status", "success");
+                    jsonResponse.put("message", "Application successfully submitted.");
+                }else if (whitelistManager.getUUIDFromUsername(username) == null){
+                    jsonResponse.put("status", "error");
+                    jsonResponse.put("message", "UUID was not found.");
+                } else {
+                    jsonResponse.put("status", "error");
+                    jsonResponse.put("message", "Please provide username and accept the rules.");
+                }
+                response.getWriter().write(jsonResponse.toString());
+            } else if (target.equals("/api/requests") && "GET".equalsIgnoreCase(request.getMethod())) {
+                response.setContentType("application/json");
+                String json = whitelistManager.getPendingRequestsAsJson();
+                response.getWriter().write(json);
+            } else {
+                response.setStatus(HttpServletResponse.SC_NOT_FOUND);
             }
         }
     }

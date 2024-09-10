@@ -16,6 +16,11 @@ public class Whitelister extends JavaPlugin {
         this.language = getConfig().getString("language", "en");
         whitelistManager = new WhitelistManager(this);
 
+        // Deploy Files
+        saveResource("messages_de.yml", false);
+        saveResource("messages_en.yml", false);
+        saveResource("rules.yml", false);
+
         // Start Jetty server on configured port
         startWebServer();
 
