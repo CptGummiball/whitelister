@@ -97,7 +97,7 @@ They submit their Minecraft username and agree to the rules.
 
 ### Application Processing:
 
-The player's username and UUID (fetched from the Mojang API) are stored in a YAML file.
+The player's username and UUID (fetched from the Mojang API) are stored in a json file.
 Administrators with the whitelister.manage permission can view pending applications in-game and accept them using the /whitelister accept command.
 Whitelist Update:
 
