@@ -27,7 +27,6 @@ Stop the server to adjust the configuration files as needed.
 
 **config.yml:**
 
-Set the webserver port and specify whether to use a rules URL or a local rules.yml file.
 Example configuration:
 ````yaml
 # Webserver Configuration
@@ -39,6 +38,9 @@ language: en
 # Enable or disable notifications for new applications
 notifications:
   enabled: true
+  
+# Using the API instead of internal frontend
+use_api: false
 
 # Optional URL for server rules
 # If set, the URL will be displayed as a hyperlink instead of showing the rules from rules.yml
