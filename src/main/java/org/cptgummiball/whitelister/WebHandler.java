@@ -117,7 +117,7 @@ public class WebHandler extends AbstractHandler {
                     jsonResponse.put("status", "success");
                     jsonResponse.put("message", "Application successfully submitted.");
                 }else if (whitelistManager.getUUIDFromUsername(username) == null){
-                    jsonResponse.put("status", "error");
+                    jsonResponse.put("status", "UUIDerror");
                     jsonResponse.put("message", "UUID was not found.");
                 } else {
                     jsonResponse.put("status", "error");

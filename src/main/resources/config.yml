@@ -8,6 +8,9 @@ language: en
 notifications:
   enabled: true
 
+# Using the API instead of internal frontend
+use_api: false
+
 # Optional URL for server rules
 # If set, the URL will be displayed as a hyperlink instead of showing the rules from rules.yml
 rules_url: "https://example.com/server-rules"
