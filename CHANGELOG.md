@@ -1,6 +1,6 @@
 # CHANGELOG
 
-## NEXT
+## 1.1.1 [11.09.2024]
 ### Added:
 
 ### Changed
