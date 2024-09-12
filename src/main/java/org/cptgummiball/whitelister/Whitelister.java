@@ -21,9 +21,9 @@ public class Whitelister extends JavaPlugin {
         startWebServer();
 
         // Register commands and tab completer
-        WhitelistCommand whitelistCommand = new WhitelistCommand(this);
-        this.getCommand("whitelister").setExecutor(whitelistCommand);
-        this.getCommand("whitelister").setTabCompleter(whitelistCommand); // Register tab completer
+        WhitelisterCommand whitelisterCommand = new WhitelisterCommand(this);
+        this.getCommand("whitelister").setExecutor(whitelisterCommand);
+        this.getCommand("whitelister").setTabCompleter(whitelisterCommand); // Register tab completer
 
         // Register event listener for player join notifications
         getServer().getPluginManager().registerEvents(new PlayerJoinListener(this), this);
@@ -63,3 +63,4 @@ public class Whitelister extends JavaPlugin {
         return getConfig();
     }
 }
+
