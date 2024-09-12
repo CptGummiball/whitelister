@@ -1,6 +1,5 @@
 package org.cptgummiball.whitelister;
 
-import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
@@ -14,7 +13,7 @@ import java.util.Map;
 import java.util.UUID;
 
 public class WhitelistCommand implements CommandExecutor, TabCompleter {
-    private final WhitelistManager whitelistManager = null;
+    private WhitelistManager whitelistManager;
     private final Whitelister plugin;
 
     public WhitelistCommand(Whitelister plugin) {
@@ -24,7 +23,7 @@ public class WhitelistCommand implements CommandExecutor, TabCompleter {
 
     @Override
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
-        if (!(sender instanceof Player)) {
+        if (sender instanceof Player) {
             Player player = (Player) sender;
             if (args.length == 0 || args[0].equalsIgnoreCase("list")) {
 
@@ -60,9 +59,9 @@ public class WhitelistCommand implements CommandExecutor, TabCompleter {
         String appList = plugin.getConfig().getString("messages.application_list", null);
         Map<String, UUID> applications = whitelistManager.getPendingApplications();
         if (applications.isEmpty()) {
-            player.sendMessage(ChatColor.RED + noApp);
+            player.sendMessage(noApp);
         } else {
-            player.sendMessage(ChatColor.GREEN + appList);
+            player.sendMessage(appList);
             for (String username : applications.keySet()) {
                 player.sendMessage("- " + username);
             }
@@ -75,9 +74,9 @@ public class WhitelistCommand implements CommandExecutor, TabCompleter {
         Map<String, UUID> applications = whitelistManager.getPendingApplications();
         if (applications.containsKey(username)) {
             whitelistManager.acceptApplication(username);
-            player.sendMessage(ChatColor.GREEN + appAccept.replace("{username}", username));
+            player.sendMessage(appAccept.replace("{username}", username));
         } else {
-            player.sendMessage(ChatColor.RED + noAppFound.replace("{username}", username));
+            player.sendMessage(noAppFound.replace("{username}", username));
         }
     }
 }
