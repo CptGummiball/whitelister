@@ -6,7 +6,7 @@
 
   <groupId>org.cptgummiball</groupId>
   <artifactId>Whitelister</artifactId>
-  <version>1.1.2</version>
+  <version>1.1.3</version>
   <packaging>jar</packaging>
 
   <name>Whitelister</name>

@@ -1,6 +1,10 @@
 # CHANGELOG
 
-## 1.1.2 [11.09.2024]
+## 1.1.3 [12.09.2024]
+### Changed:
+- rules ar now set in ``config.yml``
+
+## 1.1.2 [12.09.2024]
 ### Fixed:
 - Lang Error
   - removes messages files and placed the translation into ``config.yml``

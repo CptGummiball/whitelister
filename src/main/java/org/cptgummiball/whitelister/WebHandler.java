@@ -68,11 +68,9 @@ public class WebHandler extends AbstractHandler {
                 // If a URL is set, display the hyperlink
                 response.getWriter().println("<p><a href='" + rulesUrl + "' target='_blank'>" + linkText + "</a></p>");
             } else {
-                // Otherwise, load and display rules from rules.yml
-                FileConfiguration rulesConfig = plugin.getConfig("rules.yml");
-                for (String rule : rulesConfig.getStringList("rules")) {
-                    response.getWriter().println("<p>" + rule + "</p>");
-                }
+                // Otherwise, load and display rules from config.yml
+                String rule = String.valueOf(plugin.getConfig().getStringList("rules"));
+                response.getWriter().println("<p>" + rule + "</p>");
             }
 
             // Add the form for the application

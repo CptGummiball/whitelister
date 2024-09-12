@@ -40,8 +40,21 @@ notifications:
 use_api: false
 
 # Optional URL for server rules
-# If set, the URL will be displayed as a hyperlink instead of showing the rules from rules.yml
+# If set, the URL will be displayed as a hyperlink instead of showing the rules from rules section.
 rules_url: ""
+# Rules configuration
+# Define your server rules here. Each rule should be a list item (-).
+# These rules will be displayed on the web interface if rules_url was not set.
+rules:
+  - "No griefing."
+  - "Be respectful to other players."
+  - "No hacking or cheating."
+  - "Follow the instructions of the server admins."
+
+# Example:
+# rules:
+#   - "Your first rule."
+#   - "Your second rule."
 
 # Translation
 messages:
@@ -56,28 +69,6 @@ messages:
   pending_applications_notification: "There are pending whitelist applications."
   server_rules_link_text: "Click here to read the server rules."
 ````
-
-**rules.yml:**
-
-````yaml
-# Rules configuration
-# Define your server rules here. Each rule should be a list item (-).
-# These rules will be displayed on the web interface.
-rules:
-  - "No griefing."
-  - "Be respectful to other players."
-  - "No hacking or cheating."
-  - "Follow the instructions of the server admins."
-
-# Example:
-# rules:
-#   - "Your first rule."
-#   - "Your second rule."
-````
-
-**messages.yml:**
-
-This file stores all language-specific messages. You can customize texts like the server rules title, application success message, etc.
 
 ### Starting the Web Server:
 

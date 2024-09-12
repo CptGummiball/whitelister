@@ -4,7 +4,6 @@ import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.command.TabCompleter;
-import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.entity.Player;
 
 import java.util.ArrayList;
@@ -18,7 +17,6 @@ public class WhitelistCommand implements CommandExecutor, TabCompleter {
 
     public WhitelistCommand(Whitelister plugin) {
         this.plugin = plugin;
-        FileConfiguration config = plugin.getConfig();
     }
 
     @Override
@@ -26,12 +24,10 @@ public class WhitelistCommand implements CommandExecutor, TabCompleter {
         if (sender instanceof Player) {
             Player player = (Player) sender;
             if (args.length == 0 || args[0].equalsIgnoreCase("list")) {
-
                 listPendingApplications(player);
             } else if (args[0].equalsIgnoreCase("accept") && args.length == 2) {
                 acceptApplication(player, args[1]);
             }
-            return true;
         }
         return true;
     }

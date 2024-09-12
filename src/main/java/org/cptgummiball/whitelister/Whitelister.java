@@ -14,16 +14,13 @@ public class Whitelister extends JavaPlugin {
         saveDefaultConfig();
         whitelistManager = new WhitelistManager(this);
 
-        // Deploy Files
-        saveResource("rules.yml", false);
-
         // Start Jetty server on configured port
         startWebServer();
 
         // Register commands and tab completer
-        WhitelisterCommand whitelisterCommand = new WhitelisterCommand(this);
-        this.getCommand("whitelister").setExecutor(whitelisterCommand);
-        this.getCommand("whitelister").setTabCompleter(whitelisterCommand); // Register tab completer
+        WhitelistCommand whitelistCommand = new WhitelistCommand(this);
+        this.getCommand("whitelister").setExecutor(whitelistCommand);
+        this.getCommand("whitelister").setTabCompleter(whitelistCommand); // Register tab completer
 
         // Register event listener for player join notifications
         getServer().getPluginManager().registerEvents(new PlayerJoinListener(this), this);

@@ -1,5 +1,5 @@
 name: Whitelister
-version: '1.1.2'
+version: '1.1.3'
 main: org.cptgummiball.whitelister.Whitelister
 api-version: '1.20'
 authors: [cptgummiball]

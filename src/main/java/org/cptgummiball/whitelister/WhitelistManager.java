@@ -18,7 +18,6 @@ public class WhitelistManager {
 
     public WhitelistManager(Whitelister plugin) {
         this.plugin = plugin;
-        FileConfiguration config = plugin.getConfig();
         this.applicationsFile = new File(plugin.getDataFolder(), "pending_applications.json");
         loadPendingApplications();
     }
