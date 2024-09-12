@@ -18,13 +18,11 @@ public class PlayerJoinListener implements Listener {
     public void onPlayerJoin(PlayerJoinEvent event) {
         Player player = event.getPlayer();
         FileConfiguration config = plugin.getConfig();
-        FileConfiguration messages = plugin.getLanguage().equalsIgnoreCase("de")
-                ? plugin.getConfig("messages_de.yml") : plugin.getConfig("messages_en.yml");
-
+        String pendingApp = plugin.getConfig().getString("messages.pending_applications_notification", null);
         // Check if notifications are enabled and player has permission
         if (config.getBoolean("notifications.enabled", true) && player.hasPermission("whitelister.manage")) {
             if (plugin.getWhitelistManager().getPendingApplications() != null) {
-                player.sendMessage(ChatColor.GOLD + messages.getString("pending_applications_notification"));
+                player.sendMessage(ChatColor.GOLD + pendingApp);
             }
         }
     }

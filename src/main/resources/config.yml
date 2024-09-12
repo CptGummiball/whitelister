@@ -1,8 +1,5 @@
 # Webserver Configuration
-port: 8080
-
-# Language options (en/de)
-language: en
+port: 8013
 
 # Enable or disable notifications for new applications
 notifications:
@@ -13,4 +10,17 @@ use_api: false
 
 # Optional URL for server rules
 # If set, the URL will be displayed as a hyperlink instead of showing the rules from rules.yml
-rules_url: "https://example.com/server-rules"
+rules_url: ""
+
+# Translation
+messages:
+  no_applications: "No applications found."
+  application_list: "Application List:"
+  application_accepted: "Application for {username} accepted"
+  no_application_found: "No application for {username}"
+  application_valid: "Username valid, request send!"
+  application_error: "Error: Please provide a valid username."
+  application_title: "Whitelist Application"
+  server_rules_accept: "Please accept the rules to submit your application."
+  pending_applications_notification: "There are pending whitelist applications."
+  server_rules_link_text: "Click here to read the server rules."

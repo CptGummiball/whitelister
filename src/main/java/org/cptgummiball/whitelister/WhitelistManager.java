@@ -13,13 +13,12 @@ import java.util.concurrent.ConcurrentHashMap;
 
 public class WhitelistManager {
     private final Whitelister plugin;
-    private final FileConfiguration config;
     private final Map<String, UUID> pendingApplications = new ConcurrentHashMap<>();
     private final File applicationsFile;
 
     public WhitelistManager(Whitelister plugin) {
         this.plugin = plugin;
-        this.config = plugin.getConfig();
+        FileConfiguration config = plugin.getConfig();
         this.applicationsFile = new File(plugin.getDataFolder(), "pending_applications.json");
         loadPendingApplications();
     }

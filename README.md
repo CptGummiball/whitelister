@@ -14,7 +14,7 @@ Web-based Whitelist Application: Players can apply for whitelist access via a si
 Customizable Rules: Server rules can be defined either in a rules.yml file or linked to an external URL, both of which are displayed on the web page.
 Mojang API Integration: Automatically fetches and records the UUID of players applying for whitelist access.
 In-game Whitelist Management: Administrators can review, accept, or reject applications in-game via commands.
-Multi-language Support: English and German languages are supported, and administrators can configure which language to use in the config.yml file.
+Multi-language Support: in the ``config.yml`` you can change the text output.
 
 ## Setup and Configuration
 ### Installation:
@@ -30,21 +30,31 @@ Stop the server to adjust the configuration files as needed.
 Example configuration:
 ````yaml
 # Webserver Configuration
-port: 8080
-
-# Language options (en/de)
-language: en
+port: 8013
 
 # Enable or disable notifications for new applications
 notifications:
   enabled: true
-  
+
 # Using the API instead of internal frontend
 use_api: false
 
 # Optional URL for server rules
 # If set, the URL will be displayed as a hyperlink instead of showing the rules from rules.yml
-rules_url: "https://example.com/server-rules"
+rules_url: ""
+
+# Translation
+messages:
+  no_applications: "No applications found."
+  application_list: "Application List:"
+  application_accepted: "Application for {username} accepted"
+  no_application_found: "No application for {username}"
+  application_valid: "Username valid, request send!"
+  application_error: "Error: Please provide a valid username."
+  application_title: "Whitelist Application"
+  server_rules_accept: "Please accept the rules to submit your application."
+  pending_applications_notification: "There are pending whitelist applications."
+  server_rules_link_text: "Click here to read the server rules."
 ````
 
 **rules.yml:**
@@ -65,13 +75,13 @@ rules:
 #   - "Your second rule."
 ````
 
-**messages_en.yml and messages_de.yml:**
+**messages.yml:**
 
-These files store all language-specific messages. You can customize texts like the server rules title, application success message, etc.
+This file stores all language-specific messages. You can customize texts like the server rules title, application success message, etc.
 
 ### Starting the Web Server:
 
-The plugin automatically starts a Jetty web server on the configured port (default: 8080). You can access the application form at http://<your-server-ip>:<port>/.
+The plugin automatically starts a Jetty web server on the configured port (default: 8013). You can access the application form at http://<your-server-ip>:<port>/.
 
 ### Commands and Permissions
 **Commands:**

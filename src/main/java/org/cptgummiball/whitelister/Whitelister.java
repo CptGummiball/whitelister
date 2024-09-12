@@ -7,18 +7,14 @@ import org.eclipse.jetty.server.Server;
 public class Whitelister extends JavaPlugin {
     private Server webServer;
     private WhitelistManager whitelistManager;
-    private String language;
 
     @Override
     public void onEnable() {
         // Load configuration
         saveDefaultConfig();
-        this.language = getConfig().getString("language", "en");
         whitelistManager = new WhitelistManager(this);
 
         // Deploy Files
-        saveResource("messages_de.yml", false);
-        saveResource("messages_en.yml", false);
         saveResource("rules.yml", false);
 
         // Start Jetty server on configured port
@@ -49,25 +45,21 @@ public class Whitelister extends JavaPlugin {
     }
 
     private void startWebServer() {
-        int port = getConfig().getInt("port", 8080); // Get port from config
+        int port = getConfig().getInt("port", 8013); // Get port from config
         webServer = new Server(port);
         webServer.setHandler(new WebHandler(whitelistManager, this));
         try {
             webServer.start();
         } catch (Exception e) {
-            getLogger().info("");
+            getLogger().info("Webserver failure");
         }
-    }
-
-    public String getLanguage() {
-        return language;
     }
 
     public WhitelistManager getWhitelistManager() {
         return whitelistManager;
     }
 
-    public FileConfiguration getConfig(String s) {
+    public FileConfiguration getConfig(String string) {
         return getConfig();
     }
 }

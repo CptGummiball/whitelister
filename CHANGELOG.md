@@ -1,9 +1,10 @@
 # CHANGELOG
 
-## NEXT
+## 1.1.2 [11.09.2024]
 ### Fixed:
 - Lang Error
-- Default Port is now 8013
+  - removes messages files and placed the translation into ``config.yml``
+- Default Port is now ``8013``
 - Rules-URL is now empty
 
 ## 1.1.1 [11.09.2024]
