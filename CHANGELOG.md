@@ -1,12 +1,18 @@
 # CHANGELOG
 
+## NEXT
+### Fixed:
+- Lang Error
+- Default Port is now 8013
+- Rules-URL is now empty
+
 ## 1.1.1 [11.09.2024]
 ### Added:
 
-### Changed
+### Changed:
 - Changed UUID Error Response in API
 
-### Fixed
+### Fixed:
 - api usage was not available in config.yml
 
 ## 1.1.0 [10.09.2024]
@@ -14,5 +20,5 @@
 - API Support (enable in config.yml)
 - JSON Responses
 
-### Changed
+### Changed:
 - Command rework for new json format
