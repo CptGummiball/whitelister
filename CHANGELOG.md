@@ -1,5 +1,10 @@
 # CHANGELOG
 
+## 1.1.4 [17.09.2024]
+
+### Fixed:
+- Commands now working for console
+
 ## 1.1.3 [12.09.2024]
 ### Changed:
 - rules ar now set in ``config.yml``

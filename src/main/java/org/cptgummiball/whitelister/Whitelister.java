@@ -18,7 +18,7 @@ public class Whitelister extends JavaPlugin {
         startWebServer();
 
         // Register commands and tab completer
-        WhitelistCommand whitelistCommand = new WhitelistCommand(this);
+        WhitelistCommand whitelistCommand = new WhitelistCommand(this, this.getWhitelistManager());
         this.getCommand("whitelister").setExecutor(whitelistCommand);
         this.getCommand("whitelister").setTabCompleter(whitelistCommand); // Register tab completer
 
