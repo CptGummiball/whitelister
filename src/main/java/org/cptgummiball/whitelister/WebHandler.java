@@ -28,10 +28,12 @@ public class WebHandler extends AbstractHandler {
 
         boolean useApi = plugin.getConfig().getBoolean("use_api", false);
 
-        if (useApi) {
+        if (useApi == true) {
             handleApiRequests(target, request, response);
+            plugin.getLogger().info("Using API");
         } else {
             handleWebRequests(target, baseRequest, request, response);
+            plugin.getLogger().info("Using Web Front-End");
         }
     }
 

@@ -46,6 +46,13 @@ public class WhitelistManager {
         }
     }
 
+    public void denyApplication(String username) {
+        UUID uuid = pendingApplications.remove(username);
+        if (uuid != null) {
+            savePendingApplications();
+        }
+    }
+
     UUID getUUIDFromUsername(String username) {
         return fetchUUID(username);
     }

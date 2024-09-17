@@ -24,6 +24,8 @@ public class WhitelistCommand implements CommandExecutor, TabCompleter {
                 listPendingApplications(sender);
             } else if (args[0].equalsIgnoreCase("accept") && args.length == 2) {
                 acceptApplication(sender, args[1]);
+            } else if (args[0].equalsIgnoreCase("deny") && args.length == 2) {
+                denyApplication(sender, args[1]);
             } else {
                 sender.sendMessage("Invalid command usage. Try /whitelist [list|accept <username>]");
             }
@@ -39,10 +41,15 @@ public class WhitelistCommand implements CommandExecutor, TabCompleter {
         if (args.length == 1) {
             completions.add("list");
             completions.add("accept");
+            completions.add("deny");
         } else if (args.length == 2 && "accept".equalsIgnoreCase(args[0])) {
             // Provide tab completion for usernames
             completions.addAll(whitelistManager.getPendingApplications().keySet());
+        } else if (args.length == 2 && "deny".equalsIgnoreCase(args[0])) {
+            // Provide tab completion for usernames
+            completions.addAll(whitelistManager.getPendingApplications().keySet());
         }
+
         return completions;
     }
 
@@ -67,6 +74,18 @@ public class WhitelistCommand implements CommandExecutor, TabCompleter {
         if (applications.containsKey(username)) {
             whitelistManager.acceptApplication(username);
             sender.sendMessage(appAccept.replace("{username}", username));
+        } else {
+            sender.sendMessage(noAppFound.replace("{username}", username));
+        }
+    }
+
+    private void denyApplication(CommandSender sender, String username) {
+        String appdenied = plugin.getConfig().getString("messages.application_denied", "Application accepted for {username}.");
+        String noAppFound = plugin.getConfig().getString("messages.no_application_found", "No application found for {username}.");
+        Map<String, UUID> applications = whitelistManager.getPendingApplications();
+        if (applications.containsKey(username)) {
+            whitelistManager.denyApplication(username);
+            sender.sendMessage(appdenied.replace("{username}", username));
         } else {
             sender.sendMessage(noAppFound.replace("{username}", username));
         }

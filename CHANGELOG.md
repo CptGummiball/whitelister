@@ -1,5 +1,15 @@
 # CHANGELOG
 
+## 1.1.5 [18.09.2024]
+
+### Added:
+- added deny command
+- Console Response if API or Frontend is used
+### Changed:
+- changed some messages
+### Fixed:
+- PlayerJoinListener now really checks if List is empty
+
 ## 1.1.4 [17.09.2024]
 
 ### Fixed:

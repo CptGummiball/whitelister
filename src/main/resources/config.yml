@@ -27,13 +27,14 @@ rules:
 
 # Translation
 messages:
-  no_applications: "No applications found."
-  application_list: "Application List:"
-  application_accepted: "Application for {username} accepted"
-  no_application_found: "No application for {username}"
+  no_applications: "No requests found."
+  application_list: "Whitelist request List:"
+  application_accepted: "Request for {username} accepted"
+  application_denied: "Request for {username} denied"
+  no_application_found: "No request found for {username}"
   application_valid: "Username valid, request send!"
   application_error: "Error: Please provide a valid username."
   application_title: "Whitelist Application"
-  server_rules_accept: "Please accept the rules to submit your application."
-  pending_applications_notification: "There are pending whitelist applications."
+  server_rules_accept: "Please accept the rules to submit your request."
+  pending_applications_notification: "There are pending whitelist requests."
   server_rules_link_text: "Click here to read the server rules."
