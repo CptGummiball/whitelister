@@ -58,15 +58,16 @@ rules:
 
 # Translation
 messages:
-  no_applications: "No applications found."
-  application_list: "Application List:"
-  application_accepted: "Application for {username} accepted"
-  no_application_found: "No application for {username}"
+  no_applications: "No requests found."
+  application_list: "Whitelist request List:"
+  application_accepted: "Request for {username} accepted"
+  application_denied: "Request for {username} denied"
+  no_application_found: "No request found for {username}"
   application_valid: "Username valid, request send!"
   application_error: "Error: Please provide a valid username."
   application_title: "Whitelist Application"
-  server_rules_accept: "Please accept the rules to submit your application."
-  pending_applications_notification: "There are pending whitelist applications."
+  server_rules_accept: "Please accept the rules to submit your request."
+  pending_applications_notification: "There are pending whitelist requests."
   server_rules_link_text: "Click here to read the server rules."
 ````
 
@@ -82,6 +83,9 @@ Displays all pending whitelist applications.
 
 ``/whitelister accept <username>``
 Accepts a player's whitelist application and adds them to the server's whitelist.
+
+``/whitelister deny <username>``
+Deny a player's whitelist application and adds them to the server's whitelist.
 
 **Permissions:**
 
@@ -102,7 +106,7 @@ The player's username and UUID (fetched from the Mojang API) are stored in a jso
 Administrators with the whitelister.manage permission can view pending applications in-game and accept them using the /whitelister accept command.
 Whitelist Update:
 
-Upon accepting an application, the plugin adds the player to the server's whitelist and moves their application data to an "accepted" YAML file for record-keeping.
+Upon accepting an application, the plugin adds the player to the server's whitelist.
 
 ## API Usage
 The API can be used to manage requests via HTTP requests. Make sure the use_api option in the config.yml is set to true to turn off the internal web server and use the API.
@@ -162,5 +166,23 @@ Answer:
 }
 ````
 
+## Development
+If you want to contribute or modify the plugin, you can clone the repository:
+```bash
+git clone https://github.com/CptGummiball/pAnnounce.git
+```
+### Building the Plugin
+1. Make sure you have Maven installed.
+
+2. Navigate to the project directory and run:
+```bash
+mvn clean package
+```
+3. The compiled pAnnounce.jar file will be available in the target/ directory.
+
 ## License
-This plugin is open-source and distributed under the [MIT License](LICENSE).
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+
+## Contact
+For any questions, suggestions, or issues, feel free to open an issue on the [GitHub Issues](https://github.com/CptGummiball/whitelister/issues) page.
+
