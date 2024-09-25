@@ -1,5 +1,8 @@
 package org.cptgummiball.whitelister;
 
+import org.bukkit.Bukkit;
+import org.bukkit.OfflinePlayer;
+import org.bukkit.command.CommandSender;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.json.JSONObject;
 
@@ -39,10 +42,35 @@ public class WhitelistManager {
     }
 
     public void acceptApplication(String username) {
-        plugin.getServer().dispatchCommand(plugin.getServer().getConsoleSender(), "whitelist add " + username);
-        UUID uuid = pendingApplications.remove(username);
-        if (uuid != null) {
-            savePendingApplications();
+        boolean success = false;
+
+        // Try whitelisting the user by username
+        OfflinePlayer player = Bukkit.getOfflinePlayer(username);
+        if (player != null && !player.isWhitelisted()) {
+            player.setWhitelisted(true);
+            success = true;
+        } else {
+
+            // If whitelisting by username fails, try using the UUID
+            UUID uuid = getUUIDFromUsername(username);
+            if (uuid != null) {
+                OfflinePlayer uuidPlayer = Bukkit.getOfflinePlayer(uuid);
+                if (!uuidPlayer.isWhitelisted()) {
+                    uuidPlayer.setWhitelisted(true);
+                    success = true;
+                }
+            }
+        }
+
+        // Only remove the entry if one of the two whitelist attempts was successful
+        if (success) {
+            UUID uuid = pendingApplications.remove(username);
+            if (uuid != null) {
+                savePendingApplications();
+            }
+        } else {
+            // If both fail, inform the user
+            plugin.getServer().getConsoleSender().sendMessage("Whitelist failed for user: " + username);
         }
     }
 

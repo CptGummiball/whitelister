@@ -1,5 +1,14 @@
 # CHANGELOG
 
+## 1.1.6 [25.09.2024]
+
+### Changed:
+- Replaced console command for whitelisting with direct API calls to improve performance and reduce overhead
+- Optimized whitelist logic with fallback to UUID if username fails
+
+### Fixed:
+- Improved error handling for failed whitelist attempts, now provides proper console feedback
+
 ## 1.1.5 [18.09.2024]
 
 ### Added:

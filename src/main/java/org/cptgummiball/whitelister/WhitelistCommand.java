@@ -74,8 +74,8 @@ public class WhitelistCommand implements CommandExecutor, TabCompleter {
         if (applications.containsKey(username)) {
             whitelistManager.acceptApplication(username);
             sender.sendMessage(appAccept.replace("{username}", username));
-        } else {
-            sender.sendMessage(noAppFound.replace("{username}", username));
+        } else {sender.sendMessage(noAppFound.replace("{username}", username));
+
         }
     }
 
