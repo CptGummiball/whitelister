@@ -148,7 +148,13 @@ Or:
   "message": "UUID not found."
 }
 ````
-
+Or:
+````json
+{
+  "status": "whitelistError",
+  "message": "User already on whitelist"
+}
+````
 **Retrieve all applications**
 - Endpoint: /api/requests
 - Method: GET

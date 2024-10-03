@@ -9,6 +9,7 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.util.UUID;
 
 public class WebHandler extends AbstractHandler {
     private final WhitelistManager whitelistManager;
@@ -109,17 +110,25 @@ public class WebHandler extends AbstractHandler {
 
             response.setContentType("application/json");
             JSONObject jsonResponse = new JSONObject();
+
+            // Verify that the parameters are accepted and the username exists
             if (accept != null && username != null) {
-                if (whitelistManager.getUUIDFromUsername(username) != null) {
-                    whitelistManager.handleApplication(username);
-                    jsonResponse.put("status", "success");
-                    jsonResponse.put("message", "Application successfully submitted.");
-                }else if (whitelistManager.getUUIDFromUsername(username) == null){
-                    jsonResponse.put("status", "UUIDerror");
-                    jsonResponse.put("message", "UUID was not found.");
+                // Check if the user is already whitelisted
+                if (whitelistManager.isUserOnWhitelist(username)) {
+                    jsonResponse.put("status", "whitelistError");
+                    jsonResponse.put("message", "User already on whitelist");
                 } else {
-                    jsonResponse.put("status", "error");
-                    jsonResponse.put("message", "Please provide username and accept the rules.");
+                    // If the user is not whitelisted, we check the UUID
+                    UUID uuid = whitelistManager.getUUIDFromUsername(username);
+                    if (uuid != null) {
+                        // Here the application is processed because the user is not on the whitelist and has a valid UUID
+                        whitelistManager.handleApplication(username);
+                        jsonResponse.put("status", "success");
+                        jsonResponse.put("message", "Application successfully submitted.");
+                    } else {
+                        jsonResponse.put("status", "UUIDerror");
+                        jsonResponse.put("message", "UUID was not found.");
+                    }
                 }
                 response.getWriter().write(jsonResponse.toString());
             } else if (target.equals("/api/requests") && "GET".equalsIgnoreCase(request.getMethod())) {
@@ -131,4 +140,5 @@ public class WebHandler extends AbstractHandler {
             }
         }
     }
+
 }

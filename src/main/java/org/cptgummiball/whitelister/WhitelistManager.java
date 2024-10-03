@@ -4,6 +4,7 @@ import org.bukkit.Bukkit;
 import org.bukkit.OfflinePlayer;
 import org.bukkit.command.CommandSender;
 import org.bukkit.configuration.file.FileConfiguration;
+import org.bukkit.entity.Player;
 import org.json.JSONObject;
 
 import java.io.File;
@@ -141,5 +142,18 @@ public class WhitelistManager {
     public Map<String, UUID> getPendingApplications() {
         return new HashMap<>(pendingApplications);
 
+    }
+
+    public boolean isUserOnWhitelist(String username) {
+        // Überprüfen, ob der Benutzername in der Whitelist des Servers enthalten ist
+        Player player = Bukkit.getPlayer(username); // Sucht den Spieler nach Namen
+        if (player != null) {
+            // Wenn der Spieler online ist, ist er auch auf der Whitelist
+            return true;
+        }
+
+        // Überprüfen, ob der Spieler auf der Whitelist ist, selbst wenn er offline ist
+        return Bukkit.getWhitelistedPlayers().stream()
+                .anyMatch(whitelistedPlayer -> whitelistedPlayer.getName().equalsIgnoreCase(username));
     }
 }

@@ -1,5 +1,11 @@
 # CHANGELOG
 
+## 1.1.7 [03.10.2024]
+
+### Changed:
+- Refactored UUID handling in the API request handler to improve clarity and maintainability.
+- Added the whitelist check to return appropriate messages if the user is already on the whitelist. (API)
+
 ## 1.1.6 [25.09.2024]
 
 ### Changed:
