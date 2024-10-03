@@ -1,7 +1,7 @@
 # Whitelister Plugin
 ![Spigot](https://img.shields.io/badge/Spigot-1.20--1.21.1-yellow.svg)
 ![PaperMC](https://img.shields.io/badge/PaperMC-1.20--1.21.1-blue.svg)
-![Version](https://img.shields.io/badge/Version-1.1.5-gray.svg)
+![Version](https://img.shields.io/badge/Version-1.1.6-gray.svg)
 ![MIT License](https://img.shields.io/badge/License-MIT-green.svg)
 
 **Author:** CptGummiball
