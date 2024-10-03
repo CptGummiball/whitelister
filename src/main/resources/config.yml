@@ -35,6 +35,7 @@ messages:
   application_valid: "Username valid, request send!"
   application_error: "Error: Please provide a valid username."
   application_title: "Whitelist Application"
+  application_isonwhitelist: "Error: Already whitelisted."
   server_rules_accept: "Please accept the rules to submit your request."
   pending_applications_notification: "There are pending whitelist requests."
   server_rules_link_text: "Click here to read the server rules."

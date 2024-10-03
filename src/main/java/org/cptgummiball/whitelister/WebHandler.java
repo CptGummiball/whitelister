@@ -93,10 +93,15 @@ public class WebHandler extends AbstractHandler {
             String accept = request.getParameter("accept");
             String valid = plugin.getConfig().getString("messages.application_valid", null);
             String error = plugin.getConfig().getString("messages.application_error", null);
+            String whitelist = plugin.getConfig().getString("messages.application_isonwhitelist", null);
 
             if (accept != null && username != null) {
-                whitelistManager.handleApplication(username);
-                response.getWriter().println("<html><body><div class='container'><p>" + valid + "</p></div></body></html>");
+                if (whitelistManager.isUserOnWhitelist(username)) {
+                    response.getWriter().println("<html><body><div class='container'><p>" + whitelist + "</p></div></body></html>");
+                }else {
+                    whitelistManager.handleApplication(username);
+                    response.getWriter().println("<html><body><div class='container'><p>" + valid + "</p></div></body></html>");
+                }
             } else {
                 response.getWriter().println("<html><body><div class='container'><p>" + error + "</p></div></body></html>");
             }
