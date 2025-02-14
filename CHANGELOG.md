@@ -1,5 +1,16 @@
 # CHANGELOG
 
+
+## 1.2.0 [14.02.2025]
+
+### Changed:
+- Updated `Jetty` dependency to **v12**
+- Replaced `Javax Servlet` with `Jakarta Servlet`
+- Refactored `WebHandler Class` code
+
+### Removed:
+- Removed redundant `WhitelisterCommand Class`
+
 ## 1.1.7 [03.10.2024]
 
 ### Changed:

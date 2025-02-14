@@ -8,7 +8,7 @@ import java.util.Map;
 import java.util.UUID;
 
 public class WhitelistCommand implements CommandExecutor, TabCompleter {
-    private WhitelistManager whitelistManager;
+    private final WhitelistManager whitelistManager;
     private final Whitelister plugin;
 
     public WhitelistCommand(Whitelister plugin, WhitelistManager whitelistManager) {

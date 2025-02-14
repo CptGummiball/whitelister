@@ -6,7 +6,7 @@
 
   <groupId>org.cptgummiball</groupId>
   <artifactId>Whitelister</artifactId>
-  <version>1.1.7</version>
+  <version>1.2.0</version>
   <packaging>jar</packaging>
 
   <name>Whitelister</name>
@@ -71,32 +71,33 @@
     <dependency>
       <groupId>org.eclipse.jetty</groupId>
       <artifactId>jetty-server</artifactId>
-      <version>9.4.46.v20220331</version>
+      <version>12.0.16</version>
     </dependency>
     <dependency>
       <groupId>org.eclipse.jetty</groupId>
       <artifactId>jetty-servlet</artifactId>
-      <version>9.4.46.v20220331</version>
+      <version>11.0.24</version>
     </dependency>
     <dependency>
       <groupId>org.eclipse.jetty</groupId>
       <artifactId>jetty-util</artifactId>
-      <version>9.4.46.v20220331</version>
+      <version>12.0.16</version>
     </dependency>
     <dependency>
       <groupId>org.eclipse.jetty</groupId>
       <artifactId>jetty-http</artifactId>
-      <version>9.4.46.v20220331</version>
+      <version>12.0.16</version>
     </dependency>
     <dependency>
       <groupId>org.eclipse.jetty</groupId>
       <artifactId>jetty-io</artifactId>
-      <version>9.4.46.v20220331</version>
+      <version>12.0.16</version>
     </dependency>
     <dependency>
-      <groupId>javax.servlet</groupId>
-      <artifactId>javax.servlet-api</artifactId>
-      <version>3.1.0</version>
+      <groupId>jakarta.servlet</groupId>
+      <artifactId>jakarta.servlet-api</artifactId>
+      <version>6.0.0</version>
+      <scope>provided</scope>
     </dependency>
     <dependency>
       <groupId>org.json</groupId>
